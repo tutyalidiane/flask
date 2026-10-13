@@ -1,21 +1,36 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Edit "{{ post.title }}"{% endblock %}</h1>
+  <h1 class="h3 mb-0">{% block title %}Editar "{{ post.title }}"{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
-  <form method="post" enctype="multipart/form-data">
-    <label for="title">Title</label>
-    <input name="title" id="title" value="{{ request.form['title'] or post.title }}" required>
-    <label for="body">Body</label>
-    <textarea name="body" id="body">{{ request.form['body'] or post.body }}</textarea>
-    <label for="imagem">Trocar imagem</label>
-    <input type="file" name="imagem" id="imagem" accept="image/*">
-    <input type="submit" value="Save">
-  </form>
-  <hr>
-  <form action="{{ url_for('blog.delete', id=post.id) }}" method="post">
-    <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
-  </form>
+<div class="row">
+  <div class="col-md-8 col-lg-6">
+    <form method="post" enctype="multipart/form-data" class="card shadow-sm p-4 mb-3">
+      <div class="mb-3">
+        <label for="title" class="form-label">Título</label>
+        <input name="title" id="title" class="form-control" value="{{ request.form['title'] or post.title }}" required>
+      </div>
+      <div class="mb-3">
+        <label for="body" class="form-label">Texto</label>
+        <textarea name="body" id="body" rows="5" class="form-control">{{ request.form['body'] or post.body }}</textarea>
+      </div>
+      {% if post.imagem_post %}
+        <img src="{{ url_for('static', filename='uploads/' ~ post.imagem_post) }}"
+             class="img-thumbnail mb-3" style="max-width:200px;" alt="Imagem atual">
+      {% endif %}
+      <div class="mb-3">
+        <label for="imagem" class="form-label">Trocar imagem</label>
+        <input type="file" name="imagem" id="imagem" class="form-control" accept="image/*">
+      </div>
+      <button type="submit" class="btn btn-primary">Salvar</button>
+    </form>
+
+    <form action="{{ url_for('blog.delete', id=post.id) }}" method="post">
+      <button type="submit" class="btn btn-outline-danger"
+              onclick="return confirm('Tem certeza?');">Excluir post</button>
+    </form>
+  </div>
+</div>
 {% endblock %}

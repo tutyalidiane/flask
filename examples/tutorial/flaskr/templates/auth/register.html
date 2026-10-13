@@ -1,17 +1,27 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Register{% endblock %}</h1>
+  <h1 class="h3 mb-0">{% block title %}Registrar{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
-  <form method="post" enctype="multipart/form-data">
-    <label for="username">Username</label>
-    <input name="username" id="username" required>
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" required>
-    <label for="avatar">Foto de perfil</label>
-    <input type="file" name="avatar" id="avatar" accept="image/*">
-    <input type="submit" value="Register">
-  </form>
+<div class="row">
+  <div class="col-md-6 col-lg-4">
+    <form method="post" enctype="multipart/form-data" class="card shadow-sm p-4">
+      <div class="mb-3">
+        <label for="username" class="form-label">Usuário</label>
+        <input name="username" id="username" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Senha</label>
+        <input type="password" name="password" id="password" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label for="avatar" class="form-label">Foto de perfil</label>
+        <input type="file" name="avatar" id="avatar" class="form-control" accept="image/*">
+      </div>
+      <button type="submit" class="btn btn-primary">Registrar</button>
+    </form>
+  </div>
+</div>
 {% endblock %}
