@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Painel de Cálculos{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+
+  <div class="col-md-6">
+    <div class="card shadow-sm p-3 mb-3">
+      <h2 class="h5">Cálculo de IRPF (mensal)</h2>
+      <form method="post">
+        <input type="hidden" name="acao" value="irpf">
+        <label for="salario_bruto">Salário bruto (R$)</label>
+        <input name="salario_bruto" id="salario_bruto" class="form-control" placeholder="Ex.: 6000,00" required>
+        <button type="submit" class="btn btn-primary mt-2">Calcular</button>
+      </form>
+
+      {% if irpf %}
+        <hr>
+        <p>Base de cálculo: R$ {{ '%.2f'|format(irpf.base) }}</p>
+        <p>Alíquota da faixa: {{ irpf.aliquota }}%</p>
+        <p>Imposto pela tabela: R$ {{ '%.2f'|format(irpf.imposto_tabela) }}</p>
+        <p>Redutor 2026: R$ {{ '%.2f'|format(irpf.redutor) }}</p>
+        <p><strong>Desconto estimado de IRPF: R$ {{ '%.2f'|format(irpf.imposto) }}</strong></p>
+        <p>Salário após IR: R$ {{ '%.2f'|format(irpf.liquido) }}</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card shadow-sm p-3 mb-3">
+      <h2 class="h5">Rescisão: 13º proporcional</h2>
+      <form method="post">
+        <input type="hidden" name="acao" value="rescisao">
+        <label for="salario_base">Salário base (R$)</label>
+        <input name="salario_base" id="salario_base" class="form-control" placeholder="Ex.: 3000,00" required>
+        <label for="meses" class="mt-2">Meses trabalhados no ano (1 a 12)</label>
+        <input type="number" name="meses" id="meses" class="form-control" min="1" max="12" required>
+        <button type="submit" class="btn btn-primary mt-2">Calcular</button>
+      </form>
+
+      {% if rescisao %}
+        <hr>
+        <p>Salário base: R$ {{ '%.2f'|format(rescisao.salario) }}</p>
+        <p>Meses trabalhados: {{ rescisao.meses }}</p>
+        <p><strong>13º proporcional: R$ {{ '%.2f'|format(rescisao.decimo_terceiro) }}</strong></p>
+      {% endif %}
+    </div>
+  </div>
+
+</div>
+{% endblock %}
