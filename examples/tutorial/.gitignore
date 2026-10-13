@@ -13,3 +13,4 @@ build/
 *.swp
 *~
 flaskr/static/uploads/
+flaskr/static/uploads/
